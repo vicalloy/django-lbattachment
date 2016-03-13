@@ -1,2 +1,2 @@
 from django.conf import settings
-ATTACHMENT_STORAGE_DIR = getattr(settings, 'ATTACHMENT_STORAGE_DIR', 'attachments')
+LBATTACHMENT_STORAGE_DIR = getattr(settings, 'LBATTACHMENT_STORAGE_DIR', 'lbattachments')

@@ -5,6 +5,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from . import settings as lb_settings
 from django.utils.encoding import python_2_unicode_compatible
 
 from lbutils import format_filesize
@@ -28,7 +29,7 @@ def upload_attachment_file_path(instance, filename):
         instance.created_by.pk,
         datetime.datetime.now().strftime('%Y%m%d'),
         instance.org_filename)
-    return os.path.join(settings.ATTACHMENT_STORAGE_DIR, path)
+    return os.path.join(lb_settings.LBATTACHMENT_STORAGE_DIR, path)
 
 
 @python_2_unicode_compatible

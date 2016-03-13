@@ -1,6 +1,6 @@
 from django import forms
 
-from models import LBAttachment
+from .models import LBAttachment
 
 
 class LBAttachmentForm(forms.ModelForm):

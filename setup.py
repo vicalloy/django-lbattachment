@@ -7,7 +7,7 @@ LONG_DESCRIPTION = """
 """
 
 setup(
-    name='django-lb-attachments',
+    name='django-lbattachment',
     version=version,
     description="A django app to manager attachments.",
     long_description=LONG_DESCRIPTION,
@@ -24,11 +24,11 @@ setup(
     keywords='attachment,django',
     author='vicalloy',
     author_email='zbirder@gmail.com',
-    url='https://github.com/vicalloy/django-lb-attachments/',
+    url='https://github.com/vicalloy/django-lbattachment/',
     license='BSD',
     packages=find_packages(),
     package_data={
-        'attachments': [
+        'lbattachment': [
         ],
     },
     include_package_data=True,
