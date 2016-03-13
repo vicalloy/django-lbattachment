@@ -14,7 +14,7 @@ setup(
     install_requires=[
         "django-helper>=0.8.1",
         "south>=0.7.2",
-        ],
+    ],
     classifiers=[
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -27,7 +27,7 @@ setup(
     url='https://github.com/vicalloy/django-lb-attachments/',
     license='BSD',
     packages=find_packages(),
-    package_data = {
+    package_data={
         'attachments': [
         ],
     },
