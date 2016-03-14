@@ -1,9 +1,10 @@
 from django import forms
 
+from lbutils import FormHelperMixin
 from .models import LBAttachment
 
 
-class LBAttachmentForm(forms.ModelForm):
+class LBAttachmentForm(FormHelperMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -19,4 +20,4 @@ class LBAttachmentForm(forms.ModelForm):
 
     class Meta:
         model = LBAttachment
-        fields = ('file',)
+        fields = ('attach_file',)

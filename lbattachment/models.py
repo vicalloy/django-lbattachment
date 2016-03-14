@@ -19,24 +19,23 @@ except:
 
 def is_img(suffix):
     suffix = suffix.lower()
-    img_suffix = ['png', 'gif', 'jpg', 'jpeg']
-    return img_suffix.count(suffix) > 0
+    return lb_settings.LBATTACHMENT_IMG_SUFFIX_LIST.count(suffix) > 0
 
 
 def upload_attachment_file_path(instance, filename):
-    instance.org_filename = os.path.basename(filename)
+    instance.filename = os.path.basename(filename)
     path = "works/%s/%s/%s/%s" % (
         instance.created_by.pk,
         datetime.datetime.now().strftime('%Y%m%d'),
-        instance.org_filename)
+        instance.filename)
     return os.path.join(lb_settings.LBATTACHMENT_STORAGE_DIR, path)
 
 
 @python_2_unicode_compatible
 class LBAttachment(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_('Attachment'))
-    file = models.FileField(max_length=255, upload_to=upload_attachment_file_path)
-    org_filename = models.TextField()
+    attach_file = models.FileField(max_length=255, upload_to=upload_attachment_file_path)
+    filename = models.CharField(max_length=255)
     suffix = models.CharField(default='', max_length=8, blank=True)
     is_img = models.BooleanField(default=False)
     num_downloads = models.IntegerField(default=0)
@@ -47,7 +46,7 @@ class LBAttachment(models.Model):
     created_by = models.ForeignKey(User)
 
     def __str__(self):
-        return '%s|%s' % (self.user.username, self.file)
+        return '%s|%s' % (self.user.username, self.filename)
 
     def get_formated_filesize(self):
         return format_filesize(self.file.size)

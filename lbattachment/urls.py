@@ -5,6 +5,8 @@ from . import views
 
 urlpatterns = patterns(
     '',
-    url('^ajax_upload/$', views.ajax_upload, name='lbattachment_ajax_upload'),
+    url('^upload__/$', views.upload__, name='lbattachment_upload__'),
+    url('^delete__/$', views.delete__, name='lbattachment_delete__'),
+    url('^change_descn__/$', views.change_descn__, name='lbattachment_change_descn__'),
     url('^download/$', views.download, name='lbattachment_download'),
 )
