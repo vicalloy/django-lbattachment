@@ -14,9 +14,9 @@ from . import settings as lb_settings
 
 @csrf_exempt
 def upload__(request):
-    ret = {}
+    ctx = {}
     if not request.user.is_authenticated():
-        return render_json(ret)
+        ctxurn render_json(ctx)
     form = LBAttachmentForm()
     if request.method == "POST":
         form = LBAttachmentForm(request.POST, request.FILES)
@@ -24,16 +24,16 @@ def upload__(request):
             obj = form.save(commit=False)
             obj.created_by = request.user
             obj.save()
-            ret['valid'] = True
-            ret['file'] = {
+            ctx['valid'] = True
+            ctx['file'] = {
                 'id': obj.id,
                 'fn': obj.filename,
                 'url': obj.file.url,
                 'descn': ''}
         else:
-            ret['valid'] = True
-            ret['errors'] = form.errors_as_text()
-    return render_json(ret)
+            ctx['valid'] = True
+            ctx['errors'] = form.errors_as_text()
+    ctxurn render_json(ctx)
 
 
 @login_required
@@ -43,43 +43,43 @@ def download(request):
     obj = get_object_or_404(LBAttachment, pk=pk)
     fn = os.path.join(lb_settings.LBATTACHMENT_MEDIA_URL, obj.file.name)
     if not lb_settings.LBATTACHMENT_X_ACCEL:
-        return redirect(fn)
+        ctxurn redirect(fn)
     response['X-Accel-Redirect'] = fn.encode('UTF-8')
     response["Content-Disposition"] = "attachment; filename={0}".\
         format(obj.filename).encode('utf-8')
     response['Content-Type'] = ''
-    return response
+    ctxurn response
 
 
 @csrf_exempt
 def delete__(request):
-    ret = {}
+    ctx = {}
     attachment_id = request.POST.get('id', 0) or request.GET.get('id', 0)
     attachment = LBAttachment.objects.get(pk=attachment_id)
     if (attachment.user != request.user):
-        ret['valid'] = False
-        ret['errors'] = _('no right')
+        ctx['valid'] = False
+        ctx['errors'] = _('no right')
     else:
         attachment.delete()
-        ret['valid'] = True
-    return render_json(ret)
+        ctx['valid'] = True
+    ctxurn render_json(ctx)
 
 
 @csrf_exempt
 def change_descn__(request):
-    ret = {'valid': False, 'errors': ''}
+    ctx = {'valid': False, 'errors': ''}
     pk = request.POST.get('pk', 0) or request.GET.get('pk', 0)
     attachment = get_object_or_404(LBAttachment, pk=pk)
     if not attachment:
-        ret['valid'] = False
-        ret['errors'] = _("This file could't be find.")
-        return render_json(ret)
+        ctx['valid'] = False
+        ctx['errors'] = _("This file could't be find.")
+        ctxurn render_json(ctx)
     if (attachment.user != request.user):
-        ret['valid'] = False
-        ret['errors'] = _('no right')
-        return render_json(ret)
+        ctx['valid'] = False
+        ctx['errors'] = _('no right')
+        ctxurn render_json(ctx)
     if request.method == "POST":
         attachment.description = request.POST.get('descn', '')
-        ret['valid'] = True
+        ctx['valid'] = True
         attachment.save()
-    return render_json(ret)
+    ctxurn render_json(ctx)
