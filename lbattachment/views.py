@@ -16,7 +16,7 @@ from . import settings as lb_settings
 def upload__(request):
     ctx = {}
     if not request.user.is_authenticated():
-        ctxurn render_json(ctx)
+        return render_json(ctx)
     form = LBAttachmentForm()
     if request.method == "POST":
         form = LBAttachmentForm(request.POST, request.FILES)
@@ -27,13 +27,13 @@ def upload__(request):
             ctx['valid'] = True
             ctx['file'] = {
                 'id': obj.id,
-                'fn': obj.filename,
+                'fn': obj.org_filename,
                 'url': obj.file.url,
                 'descn': ''}
         else:
             ctx['valid'] = True
             ctx['errors'] = form.errors_as_text()
-    ctxurn render_json(ctx)
+    return render_json(ctx)
 
 
 @login_required
@@ -43,12 +43,12 @@ def download(request):
     obj = get_object_or_404(LBAttachment, pk=pk)
     fn = os.path.join(lb_settings.LBATTACHMENT_MEDIA_URL, obj.file.name)
     if not lb_settings.LBATTACHMENT_X_ACCEL:
-        ctxurn redirect(fn)
+        return redirect(fn)
     response['X-Accel-Redirect'] = fn.encode('UTF-8')
     response["Content-Disposition"] = "attachment; filename={0}".\
         format(obj.filename).encode('utf-8')
     response['Content-Type'] = ''
-    ctxurn response
+    return response
 
 
 @csrf_exempt
@@ -62,7 +62,7 @@ def delete__(request):
     else:
         attachment.delete()
         ctx['valid'] = True
-    ctxurn render_json(ctx)
+    return render_json(ctx)
 
 
 @csrf_exempt
@@ -73,13 +73,13 @@ def change_descn__(request):
     if not attachment:
         ctx['valid'] = False
         ctx['errors'] = _("This file could't be find.")
-        ctxurn render_json(ctx)
+        return render_json(ctx)
     if (attachment.user != request.user):
         ctx['valid'] = False
         ctx['errors'] = _('no right')
-        ctxurn render_json(ctx)
+        return render_json(ctx)
     if request.method == "POST":
         attachment.description = request.POST.get('descn', '')
         ctx['valid'] = True
         attachment.save()
-    ctxurn render_json(ctx)
+    return render_json(ctx)
