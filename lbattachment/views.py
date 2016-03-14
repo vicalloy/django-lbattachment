@@ -27,7 +27,7 @@ def upload__(request):
             ret['valid'] = True
             ret['file'] = {
                 'id': obj.id,
-                'fn': obj.org_filename,
+                'fn': obj.filename,
                 'url': obj.file.url,
                 'descn': ''}
         else:
