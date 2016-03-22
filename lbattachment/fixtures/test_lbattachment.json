@@ -1,0 +1,52 @@
+[
+{
+ "pk": 1,
+ "model": "auth.user",
+ "fields": {
+  "username": "u1",
+  "first_name": "",
+  "last_name": "",
+  "is_active": true,
+  "is_superuser": false,
+  "is_staff": false,
+  "last_login": "2014-03-16T19:57:05.899",
+  "groups": [],
+  "user_permissions": [],
+  "password": "pbkdf2_sha256$10000$5zwttPuWm38L$GtBdeXm/GTCqWu0RI25u4d9YCMepbkBGAUW80G+tDXQ=",
+  "email": "",
+  "date_joined": "2014-03-16T19:57:05.899"
+ }
+},
+{
+ "pk": 2,
+ "model": "auth.user",
+ "fields": {
+  "username": "u2",
+  "first_name": "",
+  "last_name": "",
+  "is_active": true,
+  "is_superuser": false,
+  "is_staff": false,
+  "last_login": "2014-03-16T19:57:05.899",
+  "groups": [],
+  "user_permissions": [],
+  "password": "pbkdf2_sha256$10000$5zwttPuWm38L$GtBdeXm/GTCqWu0RI25u4d9YCMepbkBGAUW80G+tDXQ=",
+  "email": "",
+  "date_joined": "2014-03-16T19:57:05.899"
+ }
+},
+{
+ "fields": {
+  "attach_file": "attachments/2016/01/14/cp.png",
+  "filename": "cp.png",
+  "suffix": "png",
+  "is_img": true,
+  "num_downloads": 20,
+  "description": "",
+  "created_by": 2,
+  "created_on": "2016-01-14T07:25:05.386Z"
+ },
+ "model": "lbattachment.lbattachment",
+ "pk": 1
+}
+]

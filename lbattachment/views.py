@@ -16,6 +16,8 @@ from . import settings as lb_settings
 def upload__(request):
     ctx = {}
     if not request.user.is_authenticated():
+        ctx['valid'] = False
+        ctx['errors'] = _('Please login first.')
         return render_json(ctx)
     form = LBAttachmentForm()
     if request.method == "POST":
@@ -26,10 +28,10 @@ def upload__(request):
             obj.save()
             ctx['valid'] = True
             ctx['file'] = {
-                'id': obj.id,
-                'fn': obj.org_filename,
-                'url': obj.file.url,
-                'descn': ''}
+                'pk': obj.pk,
+                'fn': obj.filename,
+                'url': obj.attach.url,
+                'descn': obj.description}
         else:
             ctx['valid'] = True
             ctx['errors'] = form.errors_as_text()
@@ -41,7 +43,7 @@ def download(request):
     pk = request.GET.get('pk')
     response = HttpResponse('')
     obj = get_object_or_404(LBAttachment, pk=pk)
-    fn = os.path.join(lb_settings.LBATTACHMENT_MEDIA_URL, obj.file.name)
+    fn = obj.attach_file.name
     if not lb_settings.LBATTACHMENT_X_ACCEL:
         return redirect(fn)
     response['X-Accel-Redirect'] = fn.encode('UTF-8')
@@ -54,9 +56,9 @@ def download(request):
 @csrf_exempt
 def delete__(request):
     ctx = {}
-    attachment_id = request.POST.get('id', 0) or request.GET.get('id', 0)
-    attachment = LBAttachment.objects.get(pk=attachment_id)
-    if (attachment.user != request.user):
+    attachment_pk = request.POST.get('pk', 0) or request.GET.get('pk', 0)
+    attachment = LBAttachment.objects.get(pk=attachment_pk)
+    if (attachment.created_by != request.user):
         ctx['valid'] = False
         ctx['errors'] = _('no right')
     else:
@@ -74,7 +76,7 @@ def change_descn__(request):
         ctx['valid'] = False
         ctx['errors'] = _("This file could't be find.")
         return render_json(ctx)
-    if (attachment.user != request.user):
+    if (attachment.created_by != request.user):
         ctx['valid'] = False
         ctx['errors'] = _('no right')
         return render_json(ctx)

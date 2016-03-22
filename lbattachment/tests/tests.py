@@ -6,6 +6,8 @@ import json
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
+from lbattachment import settings as lb_settings
+
 
 class BaseCase(TestCase):
 
@@ -51,15 +53,23 @@ class LBAttachmentTest(BaseCase):
         p = {}
         tmp_file = tempfile.NamedTemporaryFile(suffix='.txt')
         tmp_file.write("Hello World!\n")
-        tmp_file.close()
+        # tmp_file.close()
         p['attach_file'] = tmp_file
+        resp = self.client.post(reverse('lbattachment_upload__'), p, format='multipart')
+        self.assertRespFail(resp)
+        self.login('u1')
         resp = self.client.post(reverse('lbattachment_upload__'), p, format='multipart')
         self.assertRespSucc(resp)
 
     def test_download(self):
+        lb_settings.LBATTACHMENT_X_ACCEL = True
         p = {'pk': 1}
         resp = self.client.get(reverse('lbattachment_download'), p)
-        self.assertRespFail(resp)
+        self.assertEqual(resp.status_code, 302)
         self.login('u1')
         resp = self.client.get(reverse('lbattachment_download'), p)
-        self.assertRespFail(resp)
+        self.assertEqual(resp.status_code, 200)
+        lb_settings.LBATTACHMENT_X_ACCEL = False
+        self.login('u1')
+        resp = self.client.get(reverse('lbattachment_download'), p)
+        self.assertEqual(resp['location'], 'attachments/2016/01/14/cp.png')
