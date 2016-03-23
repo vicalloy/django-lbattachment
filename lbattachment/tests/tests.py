@@ -1,10 +1,20 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 
+import json
+import django
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 
 from lbattachment import settings as lb_settings
+
+
+def resp_as_json(resp):
+    if django.VERSION < (1, 9, 0):
+        d = json.loads(resp.content.decode('utf8'))
+    else:
+        d = resp.json()
+    return d
 
 
 class BaseCase(TestCase):
@@ -12,11 +22,11 @@ class BaseCase(TestCase):
     fixtures = ['test_lbattachment.json']
 
     def assertRespSucc(self, resp):
-        d = resp.json()
+        d = resp_as_json(resp)
         self.assertTrue(d['valid'])
 
     def assertRespFail(self, resp):
-        d = resp.json()
+        d = resp_as_json(resp)
         self.assertFalse(d['valid'])
 
 

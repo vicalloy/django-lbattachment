@@ -3,9 +3,9 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 
-from lbutils.views import render_json
 from .forms import LBAttachmentForm
 from .models import LBAttachment
 from . import settings as lb_settings
@@ -17,7 +17,7 @@ def upload__(request):
     if not request.user.is_authenticated():
         ctx['valid'] = False
         ctx['errors'] = _('Please login first.')
-        return render_json(ctx)
+        return JsonResponse(ctx)
     form = LBAttachmentForm()
     if request.method == "POST":
         form = LBAttachmentForm(request.POST, request.FILES)
@@ -34,7 +34,7 @@ def upload__(request):
         else:
             ctx['valid'] = False
             ctx['errors'] = form.errors_as_text()
-    return render_json(ctx)
+    return JsonResponse(ctx)
 
 
 @login_required
@@ -63,7 +63,7 @@ def delete__(request):
     else:
         attachment.delete()
         ctx['valid'] = True
-    return render_json(ctx)
+    return JsonResponse(ctx)
 
 
 @csrf_exempt
@@ -74,13 +74,13 @@ def change_descn__(request):
     if not attachment:
         ctx['valid'] = False
         ctx['errors'] = _("This file could't be find.")
-        return render_json(ctx)
+        return JsonResponse(ctx)
     if attachment.created_by != request.user:
         ctx['valid'] = False
         ctx['errors'] = _('no right')
-        return render_json(ctx)
+        return JsonResponse(ctx)
     if request.method == "POST":
         attachment.description = request.POST.get('descn', '')
         ctx['valid'] = True
         attachment.save()
-    return render_json(ctx)
+    return JsonResponse(ctx)
