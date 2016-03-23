@@ -11,7 +11,7 @@ from lbattachment import settings as lb_settings
 
 def resp_as_json(resp):
     if django.VERSION < (1, 9, 0):
-        d = json.loads(resp.content.encode('utf8'))
+        d = json.loads(resp.content.decode('utf8'))
     else:
         d = resp.json()
     return d
