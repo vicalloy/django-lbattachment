@@ -19,3 +19,6 @@ messages:
 
 compilemessages:
 	python translations.py compile
+
+upload:
+	python setup.py sdist --formats=gztar register upload
