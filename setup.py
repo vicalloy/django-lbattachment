@@ -24,7 +24,7 @@ def get_version(root_path):
 setup(
     name='django-lbattachment',
     version=get_version(HERE),
-    description='A set of useful function/tags/filter for Django',
+    description='A Django APP used to manager attachment',
     long_description=long_description,
     author='vicalloy',
     author_email='zbirder@gmail.com',
