@@ -30,7 +30,7 @@ setup(
     author_email='zbirder@gmail.com',
     url='https://github.com/vicalloy/django-lbattachment',
     packages=find_packages(),
-    install_requires=['Django>=1.6.0'],
+    install_requires=['Django>=1.7.0', 'django-lbutils>=1.0.0'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -46,7 +46,7 @@ setup(
         'Framework :: Django',
     ],
     zip_safe=False,
-    tests_require=["Django>=1.7.0"],
+    tests_require=["Django>=1.7.0", 'django-lbutils>=1.0.0'],
     test_suite='runtests.runtests',
     package_data={
         'lbattachment': [
