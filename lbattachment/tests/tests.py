@@ -72,4 +72,4 @@ class LBAttachmentTest(BaseCase):
         lb_settings.LBATTACHMENT_X_ACCEL = False
         self.login('u1')
         resp = self.client.get(reverse('lbattachment_download'), p)
-        self.assertEqual(resp['location'], 'attachments/2016/01/14/cp.png')
+        self.assertTrue('attachments/2016/01/14/cp.png' in resp['location'])
