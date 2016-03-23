@@ -46,7 +46,7 @@ setup(
         'Framework :: Django',
     ],
     zip_safe=False,
-    tests_require=["Django>=1.7.0", 'django-lbutils>=1.0.0'],
+    tests_require=["Django>=1.7.0", 'django-lbutils>=1.0.1'],
     test_suite='runtests.runtests',
     package_data={
         'lbattachment': [

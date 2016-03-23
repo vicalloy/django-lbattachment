@@ -4,8 +4,17 @@ django-lbattachment
 
 .. image:: https://secure.travis-ci.org/vicalloy/django-lbattachment.svg?branch=master
    :target: http://travis-ci.org/vicalloy/django-lbattachment
+
 .. image:: https://coveralls.io/repos/github/vicalloy/django-lbattachment/badge.svg?branch=master
    :target: https://coveralls.io/github/vicalloy/django-lbattachment?branch=master
+
+.. image:: https://img.shields.io/pypi/v/django-lbattachment.svg
+   :target: https://pypi.python.org/pypi/django-lbattachment/
+   :alt: Latest PyPI version
+
+.. image:: https://img.shields.io/pypi/dm/django-lbattachment.svg
+   :target: https://pypi.python.org/pypi/django-lbattachment/
+   :alt: Number of PyPI downloads
 
 A Django APP used to manager attachment.
 
