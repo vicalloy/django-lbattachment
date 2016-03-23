@@ -1,6 +1,6 @@
-==================
+===================
 django-lbattachment
-==================
+===================
 
 .. image:: https://secure.travis-ci.org/vicalloy/django-lbattachment.svg?branch=master
    :target: http://travis-ci.org/vicalloy/django-lbattachment
