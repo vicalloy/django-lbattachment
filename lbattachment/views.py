@@ -1,4 +1,3 @@
-import os
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
@@ -30,10 +29,10 @@ def upload__(request):
             ctx['file'] = {
                 'pk': obj.pk,
                 'fn': obj.filename,
-                'url': obj.attach.url,
+                'url': obj.attach_file.url,
                 'descn': obj.description}
         else:
-            ctx['valid'] = True
+            ctx['valid'] = False
             ctx['errors'] = form.errors_as_text()
     return render_json(ctx)
 
@@ -45,7 +44,7 @@ def download(request):
     obj = get_object_or_404(LBAttachment, pk=pk)
     fn = obj.attach_file.name
     if not lb_settings.LBATTACHMENT_X_ACCEL:
-        return redirect(fn)
+        return redirect(obj.attach_file.url)
     response['X-Accel-Redirect'] = fn.encode('UTF-8')
     response["Content-Disposition"] = "attachment; filename={0}".\
         format(obj.filename).encode('utf-8')
@@ -76,7 +75,7 @@ def change_descn__(request):
         ctx['valid'] = False
         ctx['errors'] = _("This file could't be find.")
         return render_json(ctx)
-    if (attachment.created_by != request.user):
+    if attachment.created_by != request.user:
         ctx['valid'] = False
         ctx['errors'] = _('no right')
         return render_json(ctx)

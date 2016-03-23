@@ -11,6 +11,7 @@ DEFAULT_SETTINGS = dict(
         'django.contrib.auth',
         'django.contrib.contenttypes',
         'django.contrib.sessions',
+        'django.contrib.admin',
 
         'lbattachment',
         'lbattachment.tests',

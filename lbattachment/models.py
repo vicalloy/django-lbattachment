@@ -27,6 +27,8 @@ def upload_attachment_file_path(instance, filename):
         instance.created_by.pk,
         datetime.date.today().strftime('%Y/%m/%d'),
         instance.filename)
+    instance.suffix = os.path.splitext(filename)[1]
+    instance.is_img = is_img(instance.suffix)
     return os.path.join(lb_settings.LBATTACHMENT_STORAGE_DIR, path)
 
 

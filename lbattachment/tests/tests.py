@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 from __future__ import unicode_literals
 
-import tempfile
 import json
 from django.test import TestCase
 from django.core.urlresolvers import reverse
@@ -51,14 +50,14 @@ class LBAttachmentTest(BaseCase):
 
     def test_upload__(self):
         p = {}
-        tmp_file = tempfile.NamedTemporaryFile(suffix='.txt')
-        tmp_file.write("Hello World!\n")
-        # tmp_file.close()
-        p['attach_file'] = tmp_file
-        resp = self.client.post(reverse('lbattachment_upload__'), p, format='multipart')
+        p['attach_file'] = open(__file__)
+        resp = self.client.post(reverse('lbattachment_upload__'), p)
+        p['attach_file'].close()
         self.assertRespFail(resp)
         self.login('u1')
-        resp = self.client.post(reverse('lbattachment_upload__'), p, format='multipart')
+        p['attach_file'] = open(__file__)
+        resp = self.client.post(reverse('lbattachment_upload__'), p)
+        p['attach_file'].close()
         self.assertRespSucc(resp)
 
     def test_download(self):
