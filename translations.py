@@ -9,8 +9,11 @@ import django
 
 DEFAULT_SETTINGS = dict(
     INSTALLED_APPS=(
-        'lbutils',
-        'lbutils.tests',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+
+        'lbattachment',
+        'lbattachment.tests',
     ),
     DATABASES={
         "default": {
@@ -30,7 +33,7 @@ def run(command):
         django.setup()
 
     parent = os.path.dirname(os.path.abspath(__file__))
-    appdir = os.path.join(parent, 'lbutils')
+    appdir = os.path.join(parent, 'lbattachment')
     os.chdir(appdir)
 
     from django.core.management import call_command
