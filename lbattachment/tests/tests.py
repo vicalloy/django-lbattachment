@@ -59,12 +59,12 @@ class LBAttachmentTest(BaseCase):
 
     def test_upload__(self):
         p = {}
-        p['attach_file'] = open(__file__)
+        p['attach_file'] = open(__file__, "rb")
         resp = self.client.post(reverse('lbattachment_upload__'), p)
         p['attach_file'].close()
         self.assertRespFail(resp)
         self.login('u1')
-        p['attach_file'] = open(__file__)
+        p['attach_file'] = open(__file__, "rb")
         resp = self.client.post(reverse('lbattachment_upload__'), p)
         p['attach_file'].close()
         self.assertRespSucc(resp)
