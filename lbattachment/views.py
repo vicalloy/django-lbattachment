@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 
 from .forms import LBAttachmentForm
 from .models import LBAttachment
@@ -32,7 +33,7 @@ def upload__(request):
             ctx['file'] = {
                 'pk': obj.pk,
                 'fn': obj.filename,
-                'url': obj.attach_file.url,
+                'url': "%s?pk=%s" % (reverse('lbattachment_download'), obj.pk),
                 'descn': obj.description}
         else:
             ctx['valid'] = False
