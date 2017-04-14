@@ -2,7 +2,6 @@ language: python
 
 python: 2.7
 
-[testenv]
 env:
   - TOXENV=py27-django17
   - TOXENV=py27-django_111
