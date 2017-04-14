@@ -4,7 +4,7 @@ python: 2.7
 
 env:
   - TOXENV=py27-django17
-  - TOXENV=py27-django_111
+  - TOXENV=py27-django111
   - TOXENV=py35-django18
   - TOXENV=py35-django19
   - TOXENV=py35-django110
