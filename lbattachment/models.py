@@ -43,7 +43,10 @@ class LBAttachment(models.Model):
     is_active = models.BooleanField(default=False)
 
     created_on = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(AUTH_USER_MODEL)
+    created_by = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return '%s|%s' % (self.created_by.username, self.filename)
