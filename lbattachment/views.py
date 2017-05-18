@@ -22,7 +22,11 @@ except ImportError:
 @csrf_exempt
 def upload__(request):
     ctx = {}
-    if not request.user.is_authenticated():
+    if callable(request.user.is_authenticated):
+        is_authenticated = request.user.is_authenticated()
+    else:
+        is_authenticated = request.user.is_authenticated
+    if is_authenticated:
         ctx['valid'] = False
         ctx['errors'] = _('Please login first.')
         return JsonResponse(ctx)
