@@ -4,9 +4,13 @@ from __future__ import unicode_literals
 import json
 import django
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 
 from lbattachment import settings as lb_settings
+
+try:
+    from django.urls import reverse
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 
 def resp_as_json(resp):
