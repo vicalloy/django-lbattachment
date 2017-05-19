@@ -26,7 +26,7 @@ def upload__(request):
         is_authenticated = request.user.is_authenticated()
     else:
         is_authenticated = request.user.is_authenticated
-    if is_authenticated:
+    if not is_authenticated:
         ctx['valid'] = False
         ctx['errors'] = _('Please login first.')
         return JsonResponse(ctx)
