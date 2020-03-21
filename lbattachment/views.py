@@ -1,22 +1,13 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.translation import ugettext as _
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.shortcuts import redirect
 
+from . import settings as lb_settings
 from .forms import LBAttachmentForm
 from .models import LBAttachment
-from . import settings as lb_settings
-
-try:
-    from django.urls import reverse
-except ImportError:
-    from django.core.urlresolvers import reverse
 
 
 @csrf_exempt

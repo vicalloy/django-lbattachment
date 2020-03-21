@@ -1,25 +1,7 @@
 language: python
+dist: bionic
 
-python: 2.7
-
-env:
-  - TOXENV=py27-django17
-  - TOXENV=py27-django111
-  - TOXENV=py35-django18
-  - TOXENV=py35-django19
-  - TOXENV=py35-django110
-  - TOXENV=py35-django111
-  - TOXENV=py35-django_trunk
-
-addons:
-  apt:
-    sources:
-      - deadsnakes
-    packages:
-      - python3.5
-
-notifications:
-  email: false
+cache: pip
 
 install:
   - pip install --upgrade pip setuptools tox virtualenv coveralls
@@ -27,8 +9,30 @@ install:
 script:
   - tox
 
+notifications:
+  email: false
+
 matrix:
+  include:
+    # Tests
+    - python: 3.5
+      env: TOXENV=py35-django2x
+    - python: 3.6
+      env: TOXENV=py36-django2x
+    - python: 3.7
+      env: TOXENV=py37-django2x
+
+    - python: 3.6
+      env: TOXENV=py36-django30
+    - python: 3.7
+      env: TOXENV=py37-django30
+    - python: 3.8
+      env: TOXENV=py38-django30
+
+    # Future (Should be in `allow_failures`)
+    - python: 3.8
+      env: TOXENV=py38-django_trunk
   allow_failures:
-    - env: TOXENV=py35-django_trunk
+    - env: TOXENV=py38-django_trunk
 
 after_success: coveralls

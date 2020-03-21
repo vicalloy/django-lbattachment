@@ -1,8 +1,4 @@
-# -*- coding: UTF-8 -*-
-from __future__ import unicode_literals
-
 from django.conf import settings
-
 
 LBATTACHMENT_X_ACCEL = getattr(settings, 'LBATTACHMENT_X_ACCEL', False)
 LBATTACHMENT_STORAGE_DIR = getattr(settings, 'LBATTACHMENT_STORAGE_DIR', 'lbattachments')

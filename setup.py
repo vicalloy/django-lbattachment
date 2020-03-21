@@ -1,5 +1,6 @@
 import os
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 
 def long_desc(root_path):
@@ -21,6 +22,7 @@ def get_version(root_path):
             if line.startswith('__version__ ='):
                 return line.split('=')[1].strip().strip('"\'')
 
+
 setup(
     name='django-lbattachment',
     version=get_version(HERE),
@@ -30,7 +32,7 @@ setup(
     author_email='zbirder@gmail.com',
     url='https://github.com/vicalloy/django-lbattachment',
     packages=find_packages(),
-    install_requires=['Django>=1.7.0', 'django-lbutils>=1.0.1'],
+    install_requires=['Django>=2.2.0', 'django-lbutils>=1.1.0'],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -46,7 +48,7 @@ setup(
         'Framework :: Django',
     ],
     zip_safe=False,
-    tests_require=["Django>=1.7.0", 'django-lbutils>=1.0.1'],
+    tests_require=["Django>=2.2.0", 'django-lbutils>=1.1.0'],
     test_suite='runtests.runtests',
     package_data={
         'lbattachment': [

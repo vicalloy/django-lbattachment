@@ -1,7 +1,5 @@
-# -*- coding: UTF-8 -*-
-from __future__ import unicode_literals
-
 import json
+
 import django
 from django.test import TestCase
 

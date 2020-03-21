@@ -3,9 +3,8 @@
 import os
 import sys
 
-from django.conf import settings
 import django
-
+from django.conf import settings
 
 DEFAULT_SETTINGS = dict(
     INSTALLED_APPS=(

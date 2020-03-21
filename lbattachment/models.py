@@ -1,19 +1,13 @@
 import datetime
 import os
 
-from django.db import models
-from django.contrib.auth.models import User
 from django.conf import settings
-from . import settings as lb_settings
-from django.utils.encoding import python_2_unicode_compatible
-
+from django.db import models
 from lbutils import format_filesize
 
+from . import settings as lb_settings
 
-try:
-    AUTH_USER_MODEL = settings.AUTH_USER_MODEL
-except:
-    AUTH_USER_MODEL = User
+AUTH_USER_MODEL = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
 def is_img(suffix):
@@ -32,7 +26,6 @@ def upload_attachment_file_path(instance, filename):
     return os.path.join(lb_settings.LBATTACHMENT_STORAGE_DIR, path)
 
 
-@python_2_unicode_compatible
 class LBAttachment(models.Model):
     attach_file = models.FileField(max_length=255, upload_to=upload_attachment_file_path)
     filename = models.CharField(max_length=255)
